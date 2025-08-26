@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Điều Khiển Thần Số Học | Nguyên Hải Yên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Harmony -->
+    <!-- Application Structure Plan: A dashboard-style SPA. Starts with a high-level "Core Identity" dashboard, then delves into the central "Inner Conflict & Grand Mission" to tell the core story. Next, an interactive "Birth Chart Analysis" allows exploration of strengths and lessons. A "Life's Journey" timeline visualizes pinnacles and challenges over time. Finally, an "Actionable Guidance" section provides practical advice. This structure guides the user from self-discovery ("who I am") to understanding ("my path") and finally to empowerment ("what to do"), creating a logical and insightful user flow. -->
+    <!-- Visualization & Content Choices: Core Numbers -> Goal: Inform -> Method: Interactive HTML cards -> Justification: Quick, digestible summary. Inner Conflict -> Goal: Explain Relationship -> Method: Custom HTML/CSS diagram -> Justification: Visually represents the central tension and its resolution. Birth Chart -> Goal: Organize -> Method: Interactive HTML grid with JS toggles -> Justification: Manages dense information effectively. Life Timeline -> Goal: Show Change -> Method: Chart.js Line Chart -> Justification: Best way to visualize data over time, with tooltips for detail. Guidance -> Goal: Organize -> Method: HTML/JS Accordion -> Justification: Keeps actionable advice neat and accessible. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #FAF9F6;
+            color: #4A4A4A;
+        }
+        .card-bg {
+            background-color: #FFFFFF;
+            border: 1px solid #EAEAEA;
+        }
+        .accent-bg {
+            background-color: #8A9A5B;
+        }
+        .accent-text {
+            color: #8A9A5B;
+        }
+        .accent-border {
+            border-color: #8A9A5B;
+        }
+        .subtle-bg {
+            background-color: #F5F5DC;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #8A9A5B;
+            border-bottom-color: #8A9A5B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        .tab-button.active {
+            background-color: #8A9A5B;
+            color: white;
+        }
+        .grid-cell {
+            transition: all 0.3s ease;
+        }
+        .highlight-arrow {
+            background-color: #8A9A5B;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold accent-text">
+                Nguyên Hải Yên
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#core-identity" class="nav-link">Bản Sắc Cốt Lõi</a>
+                <a href="#birth-chart" class="nav-link">Biểu Đồ Ngày Sinh</a>
+                <a href="#timeline" class="nav-link">Hành Trình Cuộc Đời</a>
+                <a href="#guidance" class="nav-link">Chỉ Dẫn Hành Động</a>
+            </div>
+            <div class="md:hidden">
+                <select id="mobile-nav" class="bg-white border border-gray-300 rounded-md py-2 px-3 text-gray-700">
+                    <option value="#core-identity">Bản Sắc Cốt Lõi</option>
+                    <option value="#birth-chart">Biểu Đồ Ngày Sinh</option>
+                    <option value="#timeline">Hành Trình Cuộc Đời</option>
+                    <option value="#guidance">Chỉ Dẫn Hành Động</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Giải Mã Thần Số Học Của Bạn</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Chào mừng Nguyên Hải Yên (15/03/1993) đến với hành trình khám phá bản đồ năng lượng cá nhân. Hãy tương tác với các mục bên dưới để hiểu sâu hơn về tiềm năng và con đường của bạn.</p>
+        </section>
+
+        <section id="core-identity" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-10">Bản Sắc Cốt Lõi: 5 Con Số Nền Tảng</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="card-bg p-6 rounded-xl shadow-lg col-span-1 md:col-span-2 lg:col-span-3 grid md:grid-cols-5 gap-6 items-center subtle-bg">
+                    <div class="md:col-span-1 text-center">
+                        <div class="w-24 h-24 accent-bg text-white rounded-full flex items-center justify-center mx-auto">
+                            <span class="text-5xl font-bold">22/4</span>
+                        </div>
+                    </div>
+                    <div class="md:col-span-4 text-center md:text-left">
+                        <h3 class="text-2xl font-bold accent-text">Chỉ Số Sứ Mệnh 22/4: "Bậc Thầy Kiến Tạo"</h3>
+                        <p class="mt-2 text-gray-700">Đây là năng lượng chủ đạo, quyền lực nhất của bạn. Bạn mang trong mình sứ mệnh biến những tầm nhìn vĩ đại, những lý tưởng lớn lao thành hiện thực hữu hình. Con đường của bạn là xây dựng những công trình, hệ thống có giá trị bền vững và tác động tích cực đến cộng đồng.</p>
+                    </div>
+                </div>
+
+                <div class="card-bg p-6 rounded-xl shadow-md">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-gray-100 border-2 accent-border text-3xl font-bold accent-text rounded-full flex items-center justify-center">4</div>
+                        <h3 class="text-xl font-bold">Đường Đời Số 4</h3>
+                    </div>
+                    <p class="mt-4 text-gray-600">Hành trình của bạn tập trung vào việc xây dựng nền tảng vững chắc, sự ổn định và trật tự. Bạn là người thực tế, chăm chỉ, có kỷ luật và đáng tin cậy.</p>
+                </div>
+
+                <div class="card-bg p-6 rounded-xl shadow-md">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-gray-100 border-2 accent-border text-3xl font-bold accent-text rounded-full flex items-center justify-center">5</div>
+                        <h3 class="text-xl font-bold">Linh Hồn Số 5</h3>
+                    </div>
+                    <p class="mt-4 text-gray-600">Sâu thẳm bên trong, bạn khao khát tự do, phiêu lưu và trải nghiệm. Đây là nguồn gốc của mâu thuẫn nội tâm giữa nhu cầu ổn định (số 4) và mong muốn thay đổi.</p>
+                </div>
+
+                <div class="card-bg p-6 rounded-xl shadow-md">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-gray-100 border-2 accent-border text-3xl font-bold accent-text rounded-full flex items-center justify-center">8</div>
+                        <h3 class="text-xl font-bold">Nhân Cách Số 8</h3>
+                    </div>
+                    <p class="mt-4 text-gray-600">Thế giới nhìn nhận bạn là người mạnh mẽ, có năng lực, tham vọng và quyền lực. Đây là công cụ tuyệt vời để thực hiện sứ mệnh "Bậc Thầy Kiến Tạo" của bạn.</p>
+                </div>
+                
+            </div>
+        </section>
+
+        <section id="birth-chart" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Biểu Đồ Ngày Sinh: Ma Trận Năng Lượng</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">Biểu đồ này hé lộ những tài năng bẩm sinh và các bài học cần tập trung phát triển. Hãy nhấn vào các mũi tên để khám phá.</p>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <div>
+                    <div class="grid grid-cols-3 gap-2 max-w-sm mx-auto mb-8">
+                        <div id="grid-3" class="grid-cell border-2 border-gray-300 rounded-lg aspect-square flex items-center justify-center text-3xl font-bold">3 3</div>
+                        <div id="grid-6" class="grid-cell border-2 border-gray-300 rounded-lg aspect-square flex items-center justify-center text-3xl font-bold text-gray-300">-</div>
+                        <div id="grid-9" class="grid-cell border-2 border-gray-300 rounded-lg aspect-square flex items-center justify-center text-3xl font-bold">9 9 9</div>
+                        <div id="grid-2" class="grid-cell border-2 border-gray-300 rounded-lg aspect-square flex items-center justify-center text-3xl font-bold text-gray-300">-</div>
+                        <div id="grid-5" class="grid-cell border-2 border-gray-300 rounded-lg aspect-square flex items-center justify-center text-3xl font-bold">5</div>
+                        <div id="grid-8" class="grid-cell border-2 border-gray-300 rounded-lg aspect-square flex items-center justify-center text-3xl font-bold text-gray-300">-</div>
+                        <div id="grid-1" class="grid-cell border-2 border-gray-300 rounded-lg aspect-square flex items-center justify-center text-3xl font-bold">1 1</div>
+                        <div id="grid-4" class="grid-cell border-2 border-gray-300 rounded-lg aspect-square flex items-center justify-center text-3xl font-bold text-gray-300">-</div>
+                        <div id="grid-7" class="grid-cell border-2 border-gray-300 rounded-lg aspect-square flex items-center justify-center text-3xl font-bold text-gray-300">-</div>
+                    </div>
+                    <div class="flex justify-center space-x-2 mb-4">
+                        <button class="tab-button px-4 py-2 rounded-lg transition" data-arrow="determination">Điểm Mạnh</button>
+                        <button class="tab-button px-4 py-2 rounded-lg transition" data-arrow="lessons">Bài Học</button>
+                    </div>
+                </div>
+
+                <div id="arrow-info" class="card-bg p-6 rounded-xl shadow-md min-h-[300px]">
+                    <h3 id="arrow-title" class="text-2xl font-bold accent-text mb-4"></h3>
+                    <div id="arrow-content" class="space-y-4 text-gray-700"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Hành Trình Cuộc Đời: 4 Đỉnh Cao Thành Tựu</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">Cuộc đời bạn được chia thành 4 giai đoạn chính, mỗi giai đoạn mang đến những cơ hội và thử thách riêng. Di chuột qua các điểm trên biểu đồ để xem chi tiết.</p>
+            <div class="chart-container card-bg p-4 rounded-xl shadow-lg">
+                <canvas id="lifeTimelineChart"></canvas>
+            </div>
+        </section>
+
+        <section id="guidance" class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-10">Chỉ Dẫn Hành Động: Con Đường Phát Triển</h2>
+            <div id="accordion" class="space-y-4">
+                <div class="accordion-item border rounded-xl overflow-hidden">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-lg flex justify-between items-center subtle-bg hover:bg-gray-200 transition">
+                        <span>Về Sự Nghiệp: Tích Hợp Người Xây Dựng & Người Phiêu Lưu</span>
+                        <span class="accordion-icon text-2xl accent-text">+</span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <div class="p-5 border-t">
+                            <p>Hãy tìm kiếm những vai trò có thể thỏa mãn cả năng lượng số 4 (xây dựng) và số 5 (tự do). Ví dụ: quản lý dự án cho các công trình đổi mới quy mô lớn, kiến trúc sư của các hệ thống thúc đẩy tự do, hoặc một doanh nhân xây dựng một doanh nghiệp với sứ mệnh nhân đạo mạnh mẽ. Chìa khóa là tận dụng khả năng lãnh đạo (8) của bạn để xây dựng một cái gì đó có tầm nhìn (22).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item border rounded-xl overflow-hidden">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-lg flex justify-between items-center subtle-bg hover:bg-gray-200 transition">
+                        <span>Về Các Mối Quan Hệ: Thấu Hiểu Sự Nhạy Cảm</span>
+                        <span class="accordion-icon text-2xl accent-text">+</span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <div class="p-5 border-t">
+                            <p>Thừa nhận sự nhạy cảm sâu sắc của bạn (Mũi tên trống Nhạy cảm) là điều cốt yếu. Bạn cần những người bạn đời thấu hiểu nhu cầu của bạn về cả sự ổn định và tự do. Học cách truyền đạt cảm xúc của bạn một cách trực tiếp sẽ rất quan trọng để xây dựng các mối quan hệ lâu dài, tin cậy mà một người có Đường đời 4 mong muốn.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item border rounded-xl overflow-hidden">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-lg flex justify-between items-center subtle-bg hover:bg-gray-200 transition">
+                        <span>Về Phát Triển Cá Nhân: Kích Hoạt Tiềm Năng</span>
+                        <span class="accordion-icon text-2xl accent-text">+</span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <div class="p-5 border-t space-y-3">
+                            <p><strong>Kích hoạt Trục Hành động:</strong> Hãy chủ động nói "có" với những trải nghiệm mới. Nghiên cứu về kinh doanh, tài chính và quản lý. Tạo ra các kế hoạch hành động có kỷ luật hàng ngày để biến những ý tưởng lớn của bạn thành hiện thực.</p>
+                            <p><strong>Làm chủ Cảm xúc:</strong> Thực hành chánh niệm, viết nhật ký, hoặc biểu đạt sáng tạo (nghệ thuật, âm nhạc) để kết nối và thể hiện cảm xúc của bạn một cách lành mạnh.</p>
+                            <p><strong>Tiết chế Chủ nghĩa Lý tưởng:</strong> Học cách chấp nhận "đủ tốt" thay vì theo đuổi sự hoàn hảo bất khả thi. Thực hành lòng biết ơn. Chia nhỏ những tầm nhìn lớn lao của bạn thành các bước nhỏ, có thể đạt được.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-100 mt-20">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-600">
+            <p>&copy; 2025 | Báo cáo Thần số học dành cho Nguyên Hải Yên.</p>
+            <p class="text-sm mt-2">Thông tin này mang tính chất tham khảo và chiêm nghiệm, giúp bạn khám phá và phát huy tiềm năng của bản thân.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const arrowData = {
+                determination: {
+                    title: 'Điểm Mạnh: Mũi Tên Quyết Tâm (1-5-9)',
+                    content: `
+                        <p>Đây là tài sản lớn nhất của bạn, mang lại sự kiên trì, nhẫn nại và tham vọng để theo đuổi mục tiêu đến cùng. Một khi đã quyết định, bạn sẽ không dễ dàng từ bỏ.</p>
+                        <p class="mt-2 font-semibold">Năng Lượng Ba Số 9:</p>
+                        <p>Sự quyết tâm này được "tăng áp" bởi lý tưởng và hoài bão lớn. Bạn được sinh ra để có những giấc mơ lớn và theo đuổi chúng với một tinh thần trách nhiệm cao độ.</p>
+                    `,
+                    cells: ['grid-1', 'grid-5', 'grid-9']
+                },
+                lessons: {
+                    title: 'Bài Học: 3 Mũi Tên Trống',
+                    content: `
+                        <p class="font-semibold">1. Mũi tên Nhạy cảm (trống 2-8):</p>
+                        <p>Bạn có một nội tâm nhạy cảm được che giấu sau vẻ ngoài mạnh mẽ. Bài học là học cách thể hiện cảm xúc một cách cởi mở và an toàn.</p>
+                        <p class="mt-2 font-semibold">2. Mũi tên Uất giận (trống 4-6):</p>
+                        <p>Kỳ vọng rất cao vào bản thân và cuộc sống có thể dẫn đến thất vọng. Bài học là học cách quản lý kỳ vọng và chấp nhận thực tế.</p>
+                        <p class="mt-2 font-semibold">3. Mũi tên Thụ động (trống 7-8):</p>
+                        <p>Đây là thách thức lớn nhất: sự mất kết nối giữa ý chí mạnh mẽ bên trong và hành động thực tế bên ngoài. Bài học là chủ động tìm kiếm trải nghiệm, phát triển kỹ năng và biến ý tưởng thành hành động cụ thể.</p>
+                    `,
+                    cells: ['grid-2', 'grid-8', 'grid-4', 'grid-6', 'grid-7']
+                }
+            };
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const arrowTitle = document.getElementById('arrow-title');
+            const arrowContent = document.getElementById('arrow-content');
+            const gridCells = document.querySelectorAll('.grid-cell');
+
+            function updateArrowInfo(arrowKey) {
+                const data = arrowData[arrowKey];
+                arrowTitle.textContent = data.title;
+                arrowContent.innerHTML = data.content;
+
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.arrow === arrowKey) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                gridCells.forEach(cell => cell.classList.remove('highlight-arrow'));
+                data.cells.forEach(cellId => {
+                    document.getElementById(cellId).classList.add('highlight-arrow');
+                });
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    updateArrowInfo(button.dataset.arrow);
+                });
+            });
+
+            updateArrowInfo('determination');
+
+            const ctx = document.getElementById('lifeTimelineChart').getContext('2d');
+            const lifeTimelineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [0, 32, 41, 50, 59, 68],
+                    datasets: [{
+                        label: 'Đỉnh Cao Thành Tựu',
+                        data: [null, 9, 1, 1, 7, null],
+                        borderColor: '#8A9A5B',
+                        backgroundColor: '#8A9A5B',
+                        tension: 0.4,
+                        pointRadius: 8,
+                        pointHoverRadius: 12,
+                        fill: false
+                    }, {
+                        label: 'Thử Thách Cần Vượt Qua',
+                        data: [{x: 16, y: 3}, {x: 36, y: 2}, {x: 45, y: 1}, {x: 54.5, y: 1}],
+                        borderColor: '#E2725B',
+                        backgroundColor: '#E2725B',
+                        type: 'bar',
+                        barPercentage: 0.1,
+                        categoryPercentage: 0.1,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            title: {
+                                display: true,
+                                text: 'Năng Lượng Con Số'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Tuổi'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.dataset.label === 'Đỉnh Cao Thành Tựu' && context.parsed.y !== null) {
+                                        const age = context.label;
+                                        const pinnacle = context.raw;
+                                        let description = '';
+                                        if (pinnacle === 9) description = 'Hoàn thành, nhân đạo, trí tuệ.';
+                                        if (pinnacle === 1) description = 'Khởi đầu mới, độc lập, lãnh đạo.';
+                                        if (pinnacle === 7) description = 'Nội tâm, phân tích, tâm linh.';
+                                        return `Đỉnh cao ${pinnacle} (${age} tuổi): ${description}`;
+                                    }
+                                    if (context.dataset.label === 'Thử Thách Cần Vượt Qua') {
+                                        const challenge = context.raw.y;
+                                        let description = '';
+                                        if (challenge === 3) description = 'Giao tiếp, thể hiện bản thân.';
+                                        if (challenge === 2) description = 'Hợp tác, cân bằng cảm xúc.';
+                                        if (challenge === 1) description = 'Tự tin, độc lập lành mạnh.';
+                                        return `Thử thách ${challenge}: ${description}`;
+                                    }
+                                    return null;
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top',
+                        },
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    xMin: 32,
+                                    xMax: 32,
+                                    borderColor: 'rgba(0,0,0,0.3)',
+                                    borderWidth: 2,
+                                    borderDash: [6, 6],
+                                    label: {
+                                        content: 'Hiện tại (2025)',
+                                        enabled: true,
+                                        position: 'start'
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index',
+                    }
+                }
+            });
+            
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('.accordion-icon');
+                header.addEventListener('click', () => {
+                    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+                    if (isOpen) {
+                        content.style.maxHeight = '0px';
+                        icon.textContent = '+';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.textContent = '-';
+                    }
+                });
+            });
+
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.addEventListener('change', (e) => {
+                const targetId = e.target.value;
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
